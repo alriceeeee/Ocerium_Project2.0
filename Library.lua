@@ -573,9 +573,9 @@ function UILibrary.Main(PrjName,HideKey)
 			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 			UIListLayout.Padding = UDim.new(0, 5)
 
-			local InSection = {}
+			local section = {}
 
-			function InSection.NewToggle(ToggleText,UserFunc,defbool)
+			function section.NewToggle(ToggleText,UserFunc,defbool)
 
 				local Toggle = Instance.new("TextButton")
 				local ToggleLabel = Instance.new("TextLabel")
@@ -693,7 +693,7 @@ function UILibrary.Main(PrjName,HideKey)
 				return Toggle;
 			end
 
-			function InSection.NewLabel(LabelText,IsScaled,LabelTextSize,LabelTextColor)
+			function section.NewLabel(LabelText,IsScaled,LabelTextSize,LabelTextColor)
 				local Label = Instance.new("TextLabel")
 
 				Label.Name = LabelText
@@ -713,7 +713,7 @@ function UILibrary.Main(PrjName,HideKey)
 				return Label;
 			end
 
-			function InSection.NewLabelWithComment(LabelText,CommentText,IsScaled,LabelTextSize,LabelTextColor)
+			function section.NewLabelWithComment(LabelText,CommentText,IsScaled,LabelTextSize,LabelTextColor)
 				local Label = Instance.new("TextLabel")
 				local DateMes = Instance.new("TextLabel")
 
@@ -748,7 +748,7 @@ function UILibrary.Main(PrjName,HideKey)
 				return Label;
 			end
 
-			function InSection.NewSlider(SliderText,min,max,precise,UserFunc,defvalue)
+			function section.NewSlider(SliderText,min,max,precise,UserFunc,defvalue)
 
 				local Slider = Instance.new("TextButton")
 				local Frame = Instance.new("Frame")
@@ -934,7 +934,7 @@ function UILibrary.Main(PrjName,HideKey)
 			end
 
 
-			function InSection.NewDropdown(placeholder,Selectables,func,IsMulti)
+			function section.NewDropdown(placeholder,Selectables,func,IsMulti)
 				local Dropdown = Instance.new("TextButton")
 				local Frame = Instance.new("Frame")
 				local DropdownCorner = Instance.new("UICorner")
@@ -1270,7 +1270,7 @@ function UILibrary.Main(PrjName,HideKey)
 				end
 				return Drop;
 			end
-			function InSection.NewButton(btnText,func)
+			function section.NewButton(btnText,func)
 
 				local Button = Instance.new("TextButton")
 				local SecFrame = Instance.new("Frame")
@@ -1359,7 +1359,7 @@ function UILibrary.Main(PrjName,HideKey)
 			Ignore_3.BackgroundTransparency = 1
 			Ignore_3.BorderSizePixel = 0
 			Ignore_3.LayoutOrder = -9999
-			return InSection;
+			return section;
 		end
 		return ElementsLib;
 	end

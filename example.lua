@@ -1,5 +1,4 @@
-
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/alriceeeee/Ocerium_Project2.0/main/Library.
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/alriceeeee/Ocerium_Project2.0/main/Library.lua"))()
 Window = Library.Main("Your Text","LeftAlt") -- change "LeftAlt" to key that you want will hide gui
 
 --//tab
