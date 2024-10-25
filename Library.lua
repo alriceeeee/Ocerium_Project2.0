@@ -172,7 +172,7 @@ function UILibrary.Main(PrjName,HideKey)
 
     local function setVisibility(parent, visible)
         for _, child in ipairs(parent:GetChildren()) do
-            if child:IsA("GuiObject") and child ~= MinimizeButton and child ~= HideMain then
+            if child:IsA("GuiObject") and child ~= MinimizeButton and child ~= HideMain and child.Name ~= "UICorner" then
                 child.Visible = visible
             end
         end
@@ -183,9 +183,10 @@ function UILibrary.Main(PrjName,HideKey)
         if minimized then
             Main:TweenSize(minimizedSize, "Out", "Quad", 0.3, true)
             setVisibility(Main, false)
+            MinimizeButton.Visible = true  -- Ensure the minimize button stays visible
         else
-            Main:TweenSize(originalSize, "Out", "Quad", 0.3, true)
             setVisibility(Main, true)
+            Main:TweenSize(originalSize, "Out", "Quad", 0.3, true)
         end
     end)
 
