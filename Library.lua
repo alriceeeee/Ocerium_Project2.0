@@ -170,24 +170,22 @@ function UILibrary.Main(PrjName,HideKey)
     local originalSize = Main.Size
     local minimizedSize = UDim2.new(0, 200, 0, 40)
 
+    local function setVisibility(parent, visible)
+        for _, child in ipairs(parent:GetChildren()) do
+            if child:IsA("GuiObject") and child ~= MinimizeButton and child ~= HideMain then
+                child.Visible = visible
+            end
+        end
+    end
+
     MinimizeButton.MouseButton1Click:Connect(function()
         minimized = not minimized
         if minimized then
             Main:TweenSize(minimizedSize, "Out", "Quad", 0.3, true)
-            for _, child in ipairs(Main:GetChildren()) do
-                if child ~= MinimizeButton and child ~= HideMain and child.ClassName ~= "UICorner" then
-                    if child:IsA("GuiObject") then
-                        child.Visible = false
-                    end
-                end
-            end
+            setVisibility(Main, false)
         else
             Main:TweenSize(originalSize, "Out", "Quad", 0.3, true)
-            for _, child in ipairs(Main:GetChildren()) do
-                if child:IsA("GuiObject") then
-                    child.Visible = true
-                end
-            end
+            setVisibility(Main, true)
         end
     end)
 
