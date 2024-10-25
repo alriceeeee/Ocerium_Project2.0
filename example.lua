@@ -18,9 +18,10 @@ local DisabledToggle = Section.NewToggle("Disabled Toggle",function(bool)
 -- code here
 end,false) -- "false" is the default value of toggle
 
-local SliderPrecise = section.NewSlider("Slider precise",0,100,true,function(value)
-
-end,25)
-local SliderNotPrecise = section.NewSlider("Slider not precise",0,100,false,function(value)
-
-end,75)
+local SliderPrecise = Section.NewSlider("Slider precise", 0, 100, true, function(value)
+     print("Precise slider value:", value)
+ end, 25)
+ 
+ local SliderNotPrecise = Section.NewSlider("Slider not precise", 0, 100, false, function(value)
+     print("Not precise slider value:", value)
+ end, 75)

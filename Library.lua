@@ -748,191 +748,98 @@ function UILibrary.Main(PrjName,HideKey)
 				return Label;
 			end
 
-			function section.NewSlider(SliderText,min,max,precise,UserFunc,defvalue)
-
-				local Slider = Instance.new("TextButton")
-				local Frame = Instance.new("Frame")
-				local SliderLabel = Instance.new("TextLabel")
+			function section.NewSlider(SliderText, MinValue, MaxValue, IsPrecise, callback, DefaultValue)
+				local Slider = Instance.new("Frame")
 				local SliderCorner = Instance.new("UICorner")
-				local Sliding = Instance.new("Frame")
-				local SlidingCorner = Instance.new("UICorner")
-				local Circle = Instance.new("Frame")
-				local HideColor = Instance.new("Frame")
-				local HideColorCorner = Instance.new("UICorner")
-				local CircleCorner = Instance.new("UICorner")
-				local Progress = Instance.new("Frame")
-				local ProgressCorner = Instance.new("UICorner")
-				local CircleStroke = Instance.new("UIStroke")
-				local ValueLabel = Instance.new("TextLabel")
-
-				--Properties:
-
+				local SliderTitle = Instance.new("TextLabel")
+				local SliderValue = Instance.new("TextLabel")
+				local SliderButton = Instance.new("TextButton")
+				local SliderInner = Instance.new("Frame")
+				local SliderInnerCorner = Instance.new("UICorner")
+				
 				Slider.Name = SliderText
 				Slider.Parent = SectionElements
-				Slider.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
-				Slider.BorderSizePixel = 0
-				Slider.Position = UDim2.new(0.286780387, 0, 0, 0)
-				Slider.Size = UDim2.new(1, 0, 0, 40)
-				Slider.AutoButtonColor = false
-				Slider.Font = Enum.Font.SourceSans
-				Slider.Text = ""
-				Slider.TextColor3 = Color3.fromRGB(0, 0, 0)
-				Slider.TextSize = 14.000
-
-				Frame.Parent = Slider
-				Frame.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
-				Frame.BorderSizePixel = 0
-				Frame.AnchorPoint = Vector2.new(0.5,0)
-				Frame.Position = UDim2.new(0.53, 0, 1, 0)
-				Frame.Size = UDim2.new(1, 0, 0, 1)
-
-				SliderLabel.Name = "SliderLabel"
-				SliderLabel.Parent = Slider
-				SliderLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				SliderLabel.BackgroundTransparency = 1.000
-				SliderLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
-				SliderLabel.BorderSizePixel = 0
-				SliderLabel.Position = UDim2.new(0.0500000007, 0, 0, 0)
-				SliderLabel.Size = UDim2.new(0.949999988, 0, 1, 0)
-				SliderLabel.Font = Enum.Font.GothamSemibold
-				SliderLabel.Text = SliderText
-				SliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-				SliderLabel.TextSize = 16.000
-				SliderLabel.TextXAlignment = Enum.TextXAlignment.Left
-
+				Slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+				Slider.Size = UDim2.new(1, 0, 0, 50)
+				
 				SliderCorner.CornerRadius = UDim.new(0, 5)
 				SliderCorner.Name = "SliderCorner"
 				SliderCorner.Parent = Slider
-
-				Sliding.Name = "Sliding"
-				Sliding.Parent = Slider
-				Sliding.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
-				Sliding.BorderSizePixel = 0
-				Sliding.Position = UDim2.new(0.58, 0, 0.421052635, 0)
-				Sliding.Size = UDim2.new(0, 166, 0, 6)
-
-				SlidingCorner.CornerRadius = UDim.new(0, 15)
-				SlidingCorner.Name = "SlidingCorner"
-				SlidingCorner.Parent = Sliding
-
-				Circle.Name = "Circle"
-				Circle.Parent = Progress
-				Circle.AnchorPoint = Vector2.new(0, 0.5)
-				Circle.BackgroundColor3 = Color3.fromRGB(0, 123, 255)
-				Circle.BorderSizePixel = 0
-				Circle.Position = UDim2.new(1, 0, 0.5, 0)
-				Circle.Size = UDim2.new(0, 12, 0, 12)
-				Circle.ZIndex = 2
-
-				CircleStroke.Parent = Circle
-				CircleStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-				CircleStroke.Thickness = 2
-				CircleStroke.Color = Color3.fromRGB(43,43,43)
-
-				ValueLabel.Name = "ValueLabel"
-				ValueLabel.Parent = Circle
-				ValueLabel.AnchorPoint = Vector2.new(0.5, 0)
-				ValueLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				ValueLabel.BackgroundTransparency = 1.000
-				ValueLabel.BorderSizePixel = 0
-				ValueLabel.Position = UDim2.new(0.5, 0, -1.49128079, 0)
-				ValueLabel.Size = UDim2.new(0, 25, 0, 18)
-				ValueLabel.Font = Enum.Font.GothamSemibold
-				ValueLabel.Text = (precise and string.format("%.1f", tostring(defvalue))) or (math.floor(defvalue))
-				ValueLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-				ValueLabel.TextSize = 14.000
-
-				HideColor.Name = "HideColor"
-				HideColor.Parent = Circle
-				HideColor.AnchorPoint = Vector2.new(0.5, 0.5)
-				HideColor.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
-				HideColor.BorderSizePixel = 0
-				HideColor.Position = UDim2.new(0.5, 0, 0.5, 0)
-				HideColor.Size = UDim2.new(1, 1, 1, 1)
-				HideColor.ZIndex = 2
-
-				HideColorCorner.CornerRadius = UDim.new(0, 100)
-				HideColorCorner.Name = "HideColorCorner"
-				HideColorCorner.Parent = HideColor
-
-				CircleCorner.CornerRadius = UDim.new(0, 100)
-				CircleCorner.Name = "CircleCorner"
-				CircleCorner.Parent = Circle
-
-				Progress.Name = "Progress"
-				Progress.Parent = Sliding
-				Progress.BackgroundColor3 = Color3.fromRGB(0, 123, 255)
-				Progress.BorderSizePixel = 0
-				Progress.Size = UDim2.new(0.5, 0, 1, 0)
-
-				ProgressCorner.CornerRadius = UDim.new(0, 15)
-				ProgressCorner.Name = "ProgressCorner"
-				ProgressCorner.Parent = Progress
-
-				local Mouse = game.Players.LocalPlayer:GetMouse()
-
-				local function UpdateSlider(val)
-					local percent = (Mouse.X - Progress.AbsolutePosition.X) / Progress.AbsoluteSize.X
-
-					if val then
-						percent = (val - min) / (max - min)
-					end
-
-					percent = math.clamp(percent, 0, 1)
-
-					Progress:TweenSize(UDim2.new(percent, 0, 1, 0),"Out","Sine",0.3,true)
+				
+				SliderTitle.Name = "SliderTitle"
+				SliderTitle.Parent = Slider
+				SliderTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				SliderTitle.BackgroundTransparency = 1.000
+				SliderTitle.Position = UDim2.new(0.0272727273, 0, 0, 0)
+				SliderTitle.Size = UDim2.new(0, 187, 0, 42)
+				SliderTitle.Font = Enum.Font.GothamSemibold
+				SliderTitle.Text = SliderText
+				SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+				SliderTitle.TextSize = 14.000
+				SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
+				
+				SliderValue.Name = "SliderValue"
+				SliderValue.Parent = Slider
+				SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				SliderValue.BackgroundTransparency = 1.000
+				SliderValue.Position = UDim2.new(0.871212125, 0, 0, 0)
+				SliderValue.Size = UDim2.new(0, 55, 0, 42)
+				SliderValue.Font = Enum.Font.GothamSemibold
+				SliderValue.Text = tostring(DefaultValue or MinValue)
+				SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+				SliderValue.TextSize = 14.000
+				SliderValue.TextXAlignment = Enum.TextXAlignment.Right
+				
+				SliderButton.Name = "SliderButton"
+				SliderButton.Parent = Slider
+				SliderButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+				SliderButton.Position = UDim2.new(0.0272727273, 0, 0.686666667, 0)
+				SliderButton.Size = UDim2.new(0, 401, 0, 8)
+				SliderButton.AutoButtonColor = false
+				SliderButton.Font = Enum.Font.SourceSans
+				SliderButton.Text = ""
+				SliderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+				SliderButton.TextSize = 14.000
+				
+				SliderInner.Name = "SliderInner"
+				SliderInner.Parent = SliderButton
+				SliderInner.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+				SliderInner.Size = UDim2.new((DefaultValue or MinValue) / (MaxValue - MinValue), 0, 1, 0)
+				
+				SliderInnerCorner.CornerRadius = UDim.new(0, 5)
+				SliderInnerCorner.Name = "SliderInnerCorner"
+				SliderInnerCorner.Parent = SliderInner
+				
+				local dragging = false
+				
+				local function slide(input)
+					local pos = UDim2.new(math.clamp((input.Position.X - SliderButton.AbsolutePosition.X) / SliderButton.AbsoluteSize.X, 0, 1), 0, 1, 0)
+					SliderInner:TweenSize(pos, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
+					local value = math.floor(((pos.X.Scale * (MaxValue - MinValue)) + MinValue) * (IsPrecise and 100 or 1)) / (IsPrecise and 100 or 1)
+					SliderValue.Text = tostring(value)
+					callback(value)
 				end
-
-				UpdateSlider(defvalue)
-
-				local IsSliding,Dragging = false
-				local RealValue = defvalue
-				local value
-				local function move(Pressed)
-					IsSliding = true;
-					local pos = UDim2.new(math.clamp((Pressed.Position.X - Sliding.AbsolutePosition.X) / Sliding.AbsoluteSize.X, 0, 1), 0, 1, 0)
-					local size = UDim2.new(math.clamp((Pressed.Position.X - Sliding.AbsolutePosition.X) / Sliding.AbsoluteSize.X, 0, 1), 0, 1, 0)
-					Progress:TweenSize(size, "Out", "Quart", 0.2,true);
-					RealValue = (((pos.X.Scale * max) / max) * (max - min) + min)
-					value = (precise and string.format("%.1f", tostring(RealValue))) or (math.floor(RealValue))
-					ValueLabel.Text = tostring(value)
-					UserFunc(value)
-				end
-
-				Slider.InputBegan:Connect(function(Pressed)
-					if Pressed.UserInputType == Enum.UserInputType.MouseButton1 then
-						Dragging = true
-						IsSliding = false
-						move(Pressed)
+				
+				SliderButton.InputBegan:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 then
+						dragging = true
 					end
 				end)
-
-				Slider.InputEnded:Connect(function(Pressed)
-					if Pressed.UserInputType == Enum.UserInputType.MouseButton1 then
-						Dragging = false
-						IsSliding = false
-						move(Pressed)
+				
+				SliderButton.InputEnded:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 then
+						dragging = false
 					end
 				end)
-
-				game:GetService("UserInputService").InputChanged:Connect(function(Pressed)
-					if Dragging and Pressed.UserInputType == Enum.UserInputType.MouseMovement then
-						move(Pressed)
+				
+				game:GetService("UserInputService").InputChanged:Connect(function(input)
+					if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+						slide(input)
 					end
 				end)
-
-				Slider.MouseEnter:Connect(function()
-					HideColor:TweenSize(UDim2.new(0,0,0,0),"Out","Sine",0.2,true)
-				end)
-
-				Slider.MouseLeave:Connect(function()
-					if not Dragging then
-						HideColor:TweenSize(UDim2.new(1,1,1,1),"In","Sine",0.2,true)
-					end
-				end)
-				return Slider;
+				
+				return Slider
 			end
-
 
 			function section.NewDropdown(placeholder,Selectables,func,IsMulti)
 				local Dropdown = Instance.new("TextButton")
