@@ -7,17 +7,17 @@ local Tab = Window.NewTab("Your Tab Text")
 local Section = Tab.NewSection("Section Text")
 --// Button
 local Button = Section.NewButton("Button Text",function()
--- code here
+print("Button pressed")
 end)
 --//Toggles
 local EnabledToggle = Section.NewToggle("Enabled Toggle",function(bool)
--- code here
+print(bool)
 end,true) -- "true" is the default value of toggle
 
 local DisabledToggle = Section.NewToggle("Disabled Toggle",function(bool)
--- code here
+print(bool)
 end,false) -- "false" is the default value of toggle
-
+    
 local SliderPrecise = Section.NewSlider("Slider precise", 0, 100, true, function(value)
      print("Precise slider value:", value)
  end, 25)

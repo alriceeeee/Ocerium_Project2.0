@@ -148,6 +148,45 @@ function UILibrary.Main(PrjName,HideKey)
 
 	UICorner_3.Parent = ButtonsTab
 
+	local MinimizeButton = Instance.new("TextButton")
+    local MinimizeButtonCorner = Instance.new("UICorner")
+
+    MinimizeButton.Name = "MinimizeButton"
+    MinimizeButton.Parent = Main
+    MinimizeButton.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+    MinimizeButton.Position = UDim2.new(1, -30, 0, 5)
+    MinimizeButton.Size = UDim2.new(0, 25, 0, 25)
+    MinimizeButton.Font = Enum.Font.SourceSansBold
+    MinimizeButton.Text = "-"
+    MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    MinimizeButton.TextSize = 20.000
+    MinimizeButton.ZIndex = 101
+
+    MinimizeButtonCorner.CornerRadius = UDim.new(0, 5)
+    MinimizeButtonCorner.Name = "MinimizeButtonCorner"
+    MinimizeButtonCorner.Parent = MinimizeButton
+
+    local minimized = false
+    local originalSize = Main.Size
+    local minimizedSize = UDim2.new(0, 200, 0, 40)
+
+    MinimizeButton.MouseButton1Click:Connect(function()
+        minimized = not minimized
+        if minimized then
+            Main:TweenSize(minimizedSize, "Out", "Quad", 0.3, true)
+            for _, child in ipairs(Main:GetChildren()) do
+                if child ~= MinimizeButton and child ~= HideMain and child ~= UICorner then
+                    child.Visible = false
+                end
+            end
+        else
+            Main:TweenSize(originalSize, "Out", "Quad", 0.3, true)
+            for _, child in ipairs(Main:GetChildren()) do
+                child.Visible = true
+            end
+        end
+    end)
+
 	local IsMenuOpened = true
 
 	local LastPos = Main.Position
