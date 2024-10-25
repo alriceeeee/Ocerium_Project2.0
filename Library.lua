@@ -175,14 +175,18 @@ function UILibrary.Main(PrjName,HideKey)
         if minimized then
             Main:TweenSize(minimizedSize, "Out", "Quad", 0.3, true)
             for _, child in ipairs(Main:GetChildren()) do
-                if child ~= MinimizeButton and child ~= HideMain and child ~= UICorner then
-                    child.Visible = false
+                if child ~= MinimizeButton and child ~= HideMain and child.ClassName ~= "UICorner" then
+                    if child:IsA("GuiObject") then
+                        child.Visible = false
+                    end
                 end
             end
         else
             Main:TweenSize(originalSize, "Out", "Quad", 0.3, true)
             for _, child in ipairs(Main:GetChildren()) do
-                child.Visible = true
+                if child:IsA("GuiObject") then
+                    child.Visible = true
+                end
             end
         end
     end)
