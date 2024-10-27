@@ -332,95 +332,109 @@ function UILibrary.Main(PrjName,HideKey)
 	end
 	
 	function Tabs.Nofitication(Text)
-
-
+		local NotificationContainer = Instance.new("Frame")
+		local NotificationList = Instance.new("UIListLayout")
 		local Nofitication = Instance.new("Frame")
 		local NofiticationLabel = Instance.new("TextLabel")
 		local NofiticationButton = Instance.new("TextButton")
 		local NofiticationButtonCorner = Instance.new("UICorner")
 
+		if not Main:FindFirstChild("NotificationContainer") then
+			NotificationContainer.Name = "NotificationContainer"
+			NotificationContainer.Parent = Main
+			NotificationContainer.AnchorPoint = Vector2.new(1, 0)
+			NotificationContainer.BackgroundTransparency = 1
+			NotificationContainer.Position = UDim2.new(1, -10, 0, 10)
+			NotificationContainer.Size = UDim2.new(0, 300, 1, -20)
+
+			NotificationList.Name = "NotificationList"
+			NotificationList.Parent = NotificationContainer
+			NotificationList.SortOrder = Enum.SortOrder.LayoutOrder
+			NotificationList.VerticalAlignment = Enum.VerticalAlignment.Top
+			NotificationList.Padding = UDim.new(0, 5)
+		else
+			NotificationContainer = Main.NotificationContainer
+		end
 
 		Nofitication.Name = "Nofitication"
-		Nofitication.Parent = Main
-		Nofitication.AnchorPoint = Vector2.new(0.5, 0.5)
+		Nofitication.Parent = NotificationContainer
 		Nofitication.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 		Nofitication.BackgroundTransparency = 1
 		Nofitication.BorderSizePixel = 0
-		Nofitication.Position = UDim2.new(0.3, 0, 0.5, 0)
-		Nofitication.Size = UDim2.new(0, 350, 0, 100)
-		Nofitication.ZIndex = 3
-		TweenService:Create(FadeBackgroundFrame,TweenInfo.new(0.3),{BackgroundTransparency = 0.5}):Play()
-		TweenService:Create(Nofitication,TweenInfo.new(0.3),{BackgroundTransparency = 0}):Play()
-		Nofitication:TweenPosition(UDim2.new(0.5,0,0.5,0),"In","Quad",0.3,true)
+		Nofitication.Size = UDim2.new(1, 0, 0, 100)
+		Nofitication.ZIndex = 100
 
 		NofiticationLabel.Name = "NofiticationLabel"
 		NofiticationLabel.Parent = Nofitication
 		NofiticationLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		NofiticationLabel.BackgroundTransparency = 1.000
 		NofiticationLabel.BorderSizePixel = 0
-		NofiticationLabel.Position = UDim2.new(0, 0, 0.0599999987, 0)
-		NofiticationLabel.Size = UDim2.new(0, 350, 0, 25)
+		NofiticationLabel.Position = UDim2.new(0, 0, 0, 0)
+		NofiticationLabel.Size = UDim2.new(1, 0, 0, 25)
 		NofiticationLabel.Font = Enum.Font.GothamSemibold
 		NofiticationLabel.Text = Text
 		NofiticationLabel.TextColor3 = Color3.fromRGB(41, 127, 255)
 		NofiticationLabel.TextSize = 22.000
 		NofiticationLabel.TextWrapped = true
-		NofiticationLabel.TextTransparency = 1
+		NofiticationLabel.TextXAlignment = Enum.TextXAlignment.Left
+		NofiticationLabel.TextYAlignment = Enum.TextYAlignment.Top
 		NofiticationLabel.AutomaticSize = Enum.AutomaticSize.Y
 
 		NofiticationButton.Name = "NofiticationButton"
 		NofiticationButton.Parent = Nofitication
-		NofiticationButton.AnchorPoint = Vector2.new(0.5, 0)
+		NofiticationButton.AnchorPoint = Vector2.new(0.5, 1)
 		NofiticationButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		NofiticationButton.BackgroundTransparency = 1.000
 		NofiticationButton.BorderSizePixel = 0
-		NofiticationButton.Position = UDim2.new(0.5, 0, 0.560000002, 0)
-		NofiticationButton.Size = UDim2.new(0, 330, 0, 36)
+		NofiticationButton.Position = UDim2.new(0.5, 0, 1, -5)
+		NofiticationButton.Size = UDim2.new(1, -10, 0, 30)
 		NofiticationButton.AutoButtonColor = false
 		NofiticationButton.Font = Enum.Font.GothamSemibold
 		NofiticationButton.Text = "OK"
 		NofiticationButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 		NofiticationButton.TextSize = 16.000
 		NofiticationButton.TextTransparency = 1
-		
-		NofiticationButton.MouseButton1Click:Connect(function()
-			TweenService:Create(FadeBackgroundFrame,TweenInfo.new(0.3),{BackgroundTransparency = 1}):Play()
-			for i,v in next,Nofitication:GetDescendants() do
-				pcall(function()
-					TweenService:Create(Nofitication,TweenInfo.new(0.3),{BackgroundTransparency = 1}):Play()
-					Nofitication:TweenPosition(UDim2.new(0.3,0,0.5,0),"Out","Quad",0.3,true)
-					TweenService:Create(v,TweenInfo.new(0.3),{BackgroundTransparency = 1}):Play()
-					TweenService:Create(v,TweenInfo.new(0.3),{TextTransparency = 1}):Play()
-				end)
-			end
-			wait(0.5)
-			Nofitication:Destroy()
-		end)
-		
-		
-		
-		NofiticationButton.MouseEnter:Connect(function()
-			TweenService:Create(NofiticationButton,TweenInfo.new(0.3),{BackgroundTransparency = 0.95}):Play()
-		end)
-		
-		NofiticationButton.MouseLeave:Connect(function()
-			TweenService:Create(NofiticationButton,TweenInfo.new(0.3),{BackgroundTransparency = 1}):Play()
-		end)
-		
-		NofiticationButton.MouseButton1Down:Connect(function()
-			TweenService:Create(NofiticationButton,TweenInfo.new(0.3),{BackgroundTransparency = 0.85}):Play()
-		end)
 
 		NofiticationButtonCorner.CornerRadius = UDim.new(0, 5)
 		NofiticationButtonCorner.Name = "NofiticationButtonCorner"
 		NofiticationButtonCorner.Parent = NofiticationButton
-		
-		for i,v in next,Nofitication:GetDescendants() do
-			if v.ClassName == "TextButton" or v.ClassName == "TextLabel" then
-				TweenService:Create(v,TweenInfo.new(0.3),{BackgroundTransparency = 1}):Play()
-				TweenService:Create(v,TweenInfo.new(0.3),{TextTransparency = 0}):Play()
+
+		TweenService:Create(Nofitication, TweenInfo.new(0.3), {BackgroundTransparency = 0}):Play()
+		TweenService:Create(NofiticationLabel, TweenInfo.new(0.3), {TextTransparency = 0}):Play()
+		TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 0.9, TextTransparency = 0}):Play()
+
+		NofiticationButton.MouseButton1Click:Connect(function()
+			TweenService:Create(Nofitication, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
+			TweenService:Create(NofiticationLabel, TweenInfo.new(0.3), {TextTransparency = 1}):Play()
+			TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+			wait(0.3)
+			Nofitication:Destroy()
+		end)
+
+		NofiticationButton.MouseEnter:Connect(function()
+			TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 0.8}):Play()
+		end)
+
+		NofiticationButton.MouseLeave:Connect(function()
+			TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 0.9}):Play()
+		end)
+
+		-- Adjust the size of the notification based on the text content
+		local textSize = game:GetService("TextService"):GetTextSize(Text, NofiticationLabel.TextSize, NofiticationLabel.Font, Vector2.new(NofiticationLabel.AbsoluteSize.X, 1000))
+		local newHeight = math.max(100, textSize.Y + 60) -- 60 is for padding and button
+		Nofitication.Size = UDim2.new(1, 0, 0, newHeight)
+
+		-- Remove the notification after 5 seconds if not closed manually
+		spawn(function()
+			wait(5)
+			if Nofitication.Parent then
+				TweenService:Create(Nofitication, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
+				TweenService:Create(NofiticationLabel, TweenInfo.new(0.3), {TextTransparency = 1}):Play()
+				TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+				wait(0.3)
+				Nofitication:Destroy()
 			end
-		end
+		end)
 	end
 	function Tabs.NewTab(TabName)
 
