@@ -332,105 +332,92 @@ function UILibrary.Main(PrjName,HideKey)
 	end
 	
 	function Tabs.Nofitication(Text)
-		local NotificationContainer = Instance.new("Frame")
-		local NotificationList = Instance.new("UIListLayout")
-		local Nofitication = Instance.new("Frame")
-		local NofiticationLabel = Instance.new("TextLabel")
-		local NofiticationButton = Instance.new("TextButton")
-		local NofiticationButtonCorner = Instance.new("UICorner")
-
-		if not Main:FindFirstChild("NotificationContainer") then
+		local NotificationContainer = game.CoreGui:FindFirstChild("NotificationContainer")
+		
+		if not NotificationContainer then
+			NotificationContainer = Instance.new("ScreenGui")
 			NotificationContainer.Name = "NotificationContainer"
-			NotificationContainer.Parent = Main
-			NotificationContainer.AnchorPoint = Vector2.new(1, 0)
-			NotificationContainer.BackgroundTransparency = 1
-			NotificationContainer.Position = UDim2.new(1, -10, 0, 10)
-			NotificationContainer.Size = UDim2.new(0, 300, 1, -20)
-
-			NotificationList.Name = "NotificationList"
-			NotificationList.Parent = NotificationContainer
-			NotificationList.SortOrder = Enum.SortOrder.LayoutOrder
-			NotificationList.VerticalAlignment = Enum.VerticalAlignment.Top
-			NotificationList.Padding = UDim.new(0, 5)
-		else
-			NotificationContainer = Main.NotificationContainer
+			NotificationContainer.Parent = game.CoreGui
+			
+			local Frame = Instance.new("Frame")
+			Frame.Name = "NotificationsFrame"
+			Frame.Size = UDim2.new(0, 300, 1, -10)
+			Frame.Position = UDim2.new(1, -310, 0, 5)
+			Frame.AnchorPoint = Vector2.new(1, 0)
+			Frame.BackgroundTransparency = 1
+			Frame.Parent = NotificationContainer
+			
+			local UIListLayout = Instance.new("UIListLayout")
+			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+			UIListLayout.Padding = UDim.new(0, 5)
+			UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+			UIListLayout.Parent = Frame
 		end
 
+		local Nofitication = Instance.new("Frame")
 		Nofitication.Name = "Nofitication"
-		Nofitication.Parent = NotificationContainer
+		Nofitication.Parent = NotificationContainer.NotificationsFrame
 		Nofitication.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 		Nofitication.BackgroundTransparency = 1
 		Nofitication.BorderSizePixel = 0
 		Nofitication.Size = UDim2.new(1, 0, 0, 100)
 		Nofitication.ZIndex = 100
 
+		local NofiticationLabel = Instance.new("TextLabel")
 		NofiticationLabel.Name = "NofiticationLabel"
 		NofiticationLabel.Parent = Nofitication
 		NofiticationLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		NofiticationLabel.BackgroundTransparency = 1.000
 		NofiticationLabel.BorderSizePixel = 0
-		NofiticationLabel.Position = UDim2.new(0, 0, 0, 0)
-		NofiticationLabel.Size = UDim2.new(1, 0, 0, 25)
+		NofiticationLabel.Position = UDim2.new(0, 10, 0, 10)
+		NofiticationLabel.Size = UDim2.new(1, -20, 1, -50)
 		NofiticationLabel.Font = Enum.Font.GothamSemibold
 		NofiticationLabel.Text = Text
-		NofiticationLabel.TextColor3 = Color3.fromRGB(41, 127, 255)
-		NofiticationLabel.TextSize = 22.000
+		NofiticationLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		NofiticationLabel.TextSize = 16.000
 		NofiticationLabel.TextWrapped = true
 		NofiticationLabel.TextXAlignment = Enum.TextXAlignment.Left
 		NofiticationLabel.TextYAlignment = Enum.TextYAlignment.Top
-		NofiticationLabel.AutomaticSize = Enum.AutomaticSize.Y
 
+		local NofiticationButton = Instance.new("TextButton")
 		NofiticationButton.Name = "NofiticationButton"
 		NofiticationButton.Parent = Nofitication
-		NofiticationButton.AnchorPoint = Vector2.new(0.5, 1)
-		NofiticationButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		NofiticationButton.BackgroundTransparency = 1.000
+		NofiticationButton.AnchorPoint = Vector2.new(1, 1)
+		NofiticationButton.BackgroundColor3 = Color3.fromRGB(41, 127, 255)
 		NofiticationButton.BorderSizePixel = 0
-		NofiticationButton.Position = UDim2.new(0.5, 0, 1, -5)
-		NofiticationButton.Size = UDim2.new(1, -10, 0, 30)
-		NofiticationButton.AutoButtonColor = false
+		NofiticationButton.Position = UDim2.new(1, -10, 1, -10)
+		NofiticationButton.Size = UDim2.new(0, 60, 0, 25)
 		NofiticationButton.Font = Enum.Font.GothamSemibold
 		NofiticationButton.Text = "OK"
 		NofiticationButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-		NofiticationButton.TextSize = 16.000
-		NofiticationButton.TextTransparency = 1
+		NofiticationButton.TextSize = 14.000
 
+		local NofiticationButtonCorner = Instance.new("UICorner")
 		NofiticationButtonCorner.CornerRadius = UDim.new(0, 5)
-		NofiticationButtonCorner.Name = "NofiticationButtonCorner"
 		NofiticationButtonCorner.Parent = NofiticationButton
 
-		TweenService:Create(Nofitication, TweenInfo.new(0.3), {BackgroundTransparency = 0}):Play()
-		TweenService:Create(NofiticationLabel, TweenInfo.new(0.3), {TextTransparency = 0}):Play()
-		TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 0.9, TextTransparency = 0}):Play()
-
-		NofiticationButton.MouseButton1Click:Connect(function()
-			TweenService:Create(Nofitication, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
-			TweenService:Create(NofiticationLabel, TweenInfo.new(0.3), {TextTransparency = 1}):Play()
-			TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
-			wait(0.3)
-			Nofitication:Destroy()
-		end)
-
-		NofiticationButton.MouseEnter:Connect(function()
-			TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 0.8}):Play()
-		end)
-
-		NofiticationButton.MouseLeave:Connect(function()
-			TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 0.9}):Play()
-		end)
+		local NofiticationCorner = Instance.new("UICorner")
+		NofiticationCorner.CornerRadius = UDim.new(0, 5)
+		NofiticationCorner.Parent = Nofitication
 
 		-- Adjust the size of the notification based on the text content
 		local textSize = game:GetService("TextService"):GetTextSize(Text, NofiticationLabel.TextSize, NofiticationLabel.Font, Vector2.new(NofiticationLabel.AbsoluteSize.X, 1000))
 		local newHeight = math.max(100, textSize.Y + 60) -- 60 is for padding and button
 		Nofitication.Size = UDim2.new(1, 0, 0, newHeight)
 
+		TweenService:Create(Nofitication, TweenInfo.new(0.3), {BackgroundTransparency = 0}):Play()
+
+		NofiticationButton.MouseButton1Click:Connect(function()
+			TweenService:Create(Nofitication, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
+			wait(0.3)
+			Nofitication:Destroy()
+		end)
+
 		-- Remove the notification after 5 seconds if not closed manually
 		spawn(function()
 			wait(5)
 			if Nofitication.Parent then
 				TweenService:Create(Nofitication, TweenInfo.new(0.3), {BackgroundTransparency = 1}):Play()
-				TweenService:Create(NofiticationLabel, TweenInfo.new(0.3), {TextTransparency = 1}):Play()
-				TweenService:Create(NofiticationButton, TweenInfo.new(0.3), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
 				wait(0.3)
 				Nofitication:Destroy()
 			end
